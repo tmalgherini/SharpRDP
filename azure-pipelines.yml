@@ -26,12 +26,6 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'D:\a\1\s\SharpRDP\bin\Release\SharpRDP.exe'
-    ArtifactName: 'SharpRDP.exe'
-    publishLocation: 'Container'
     
 - task: PowerShell@2
   name: ConfuserExSetup
@@ -54,7 +48,7 @@ steps:
       <protection id="constants" />
       <!-- <protection id="anti tamper" /> -->
       </rule>
-      <module path="D:\a\1\s\SharpRDP\bin\Release\SharpRDP.exe"/>
+      <module path="D:\a\1\s\SharpRDP\SharpRDP\bin\Release\SharpRDP.exe"/>
       </project>
       "@|Out-File -FilePath confuserex.crproj
       mkdir confused
@@ -69,7 +63,7 @@ steps:
 - task: AzureFileCopy@3
   name: UploadFile
   inputs:
-    SourcePath: 'D:\a\1\s\confused\SharpRDP\bin\Release\SharpRDP.exe'
+    SourcePath: 'D:\a\1\s\confused\SharpRDP\SharpRDP\bin\Release\SharpRDP.exe'
     azureSubscription: $(SubName)
     Destination: 'AzureBlob'
     storage: $(StorageAccount)
